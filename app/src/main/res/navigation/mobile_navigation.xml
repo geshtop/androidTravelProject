@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.geshtop.project.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+<!--    <fragment-->
+<!--        android:id="@+id/nav_gallery"-->
+<!--        android:name="com.geshtop.project.ui.gallery.GalleryFragment"-->
+<!--        android:label="@string/menu_gallery"-->
+<!--        tools:layout="@layout/fragment_gallery" />-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/nav_slideshow"-->
+<!--        android:name="com.geshtop.project.ui.slideshow.SlideshowFragment"-->
+<!--        android:label="@string/menu_slideshow"-->
+<!--        tools:layout="@layout/fragment_slideshow" />-->
+
+    <fragment
+        android:id="@+id/nav_list"
+        android:name="com.geshtop.project.ui.travel.ListFragment"
+        android:label="@string/watch_tavels"
+        tools:layout="@layout/list_fragment" />
+
+    <fragment
+        android:id="@+id/nav_add"
+        android:name="com.geshtop.project.ui.travel.AddFragment"
+        android:label="@string/add_tavels"
+        tools:layout="@layout/add_fragment" />
+    <fragment
+        android:id="@+id/nav_my_travels"
+        android:name="com.geshtop.project.ui.travel.MyTravelsFragment"
+        android:label="@string/my_travels"
+        tools:layout="@layout/fragment_my_travels_list" />
+
+</navigation>

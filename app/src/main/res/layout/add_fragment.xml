@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.travel.AddFragment">
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="23dp"
+            tools:layout_editor_absoluteY="41dp">
+
+
+            <EditText
+                android:id="@+id/editTextClientName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="Enter Client Name"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editTextTextClientPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Phone number"
+                android:inputType="phone" />
+
+            <EditText
+                android:id="@+id/editTextEmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Write your email"
+                android:inputType="textEmailAddress" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editTextFromAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="From address"
+                    android:inputType="textPersonName" />
+
+            </LinearLayout>
+
+            <CalendarView
+                android:id="@+id/fromDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <EditText
+                android:id="@+id/editTextPassengers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="number"
+                android:hint="Number of Passengers"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editTextToAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="To address"
+                    android:inputType="textPersonName" />
+
+            </LinearLayout>
+
+            <CalendarView
+                android:id="@+id/toDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/addRequestBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Add Client Request" />
+
+            <ProgressBar
+                android:id="@+id/addTravelProgressBar"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</FrameLayout>
+
+
