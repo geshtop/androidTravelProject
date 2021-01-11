@@ -1,7 +1,9 @@
 package com.geshtop.project.ui.travel;
 
+import androidx.core.util.Pair;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,23 +16,37 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.geshtop.project.Entity.Travel;
 import com.geshtop.project.Entity.UserLocation;
 import com.geshtop.project.R;
 import com.geshtop.project.Utils.GeoHelper;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 import java.util.Calendar;
+import java.util.Date;
 
 
 public class AddFragment extends Fragment {
 
     //private AddViewModel mViewModel;
     private TravelViewModel mViewModel;
-    Calendar fromDatetemporary ;
-    Calendar toDatetemporary;
+    Date fDate;
+    Date tDate;
     Button addRequestBtn;
+    private ImageButton mPickDateButton;
+    private TextView mShowSelectedDateText;
+    private EditText editTextClientName;
+    private   EditText editTextEmailAddress;
+    private  EditText editTextTextClientPhone;
+    private   EditText editTextFromAddress;
+    private  EditText editTextToAddress;
+    private EditText editTextPassengers;
     public static AddFragment newInstance() {
         return new AddFragment();
     }
@@ -38,6 +54,7 @@ public class AddFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        mViewModel = new ViewModelProvider(this).get(TravelViewModel.class);
         return inflater.inflate(R.layout.add_fragment, container, false);
     }
 
@@ -45,7 +62,7 @@ public class AddFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //mViewModel = new ViewModelProvider(this).get(AddViewModel.class);
-        mViewModel = new ViewModelProvider(this).get(TravelViewModel.class);
+        //mViewModel = new ViewModelProvider(this).get(TravelViewModel.class);
         // TODO: Use the ViewModel
     }
 
@@ -56,37 +73,59 @@ public class AddFragment extends Fragment {
 
         View currView = view;
         addRequestBtn = (Button) view.findViewById(R.id.addRequestBtn);
+        mPickDateButton = view.findViewById(R.id.pick_date_button);
+        mShowSelectedDateText = view.findViewById(R.id.show_selected_date);
+        editTextClientName = view.findViewById(R.id.editTextClientName);
+        editTextEmailAddress =view.findViewById(R.id.editTextEmailAddress);
+        editTextClientName.setText(mViewModel.getCurrentUser().name);
+        editTextEmailAddress.setText(mViewModel.getCurrentUser().email);
+        editTextTextClientPhone = view.findViewById(R.id.editTextTextClientPhone);
+        editTextFromAddress = view.findViewById(R.id.editTextFromAddress);
+         editTextToAddress = view.findViewById(R.id.editTextToAddress);
+         editTextPassengers = view.findViewById(R.id.editTextPassengers);
 
-        CalendarView fromDate = (CalendarView)view.findViewById(R.id.fromDate);
-        fromDate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        MaterialDatePicker.Builder<Pair<Long, Long>> materialDateBuilder = MaterialDatePicker.Builder.dateRangePicker();
+        materialDateBuilder.setTitleText("SELECT A DATE");
+        final MaterialDatePicker pickerRange  = materialDateBuilder.build();
+        mPickDateButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month,
-                                            int dayOfMonth) {
-                fromDatetemporary = Calendar.getInstance();
-                fromDatetemporary.set(year, month, dayOfMonth);
+                        pickerRange .show(getFragmentManager(), "MATERIAL_DATE_PICKER");
+                    }
+                });
 
+        // now handle the positive button click from the
+        // material design date picker
+        pickerRange.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>() {
+            @Override public void onPositiveButtonClick(Pair<Long,Long> selection) {
+                Long startDate = selection.first;
+                Long endDate = selection.second;
+                fDate = new Date(startDate);
+                tDate = new Date(endDate);
+                mShowSelectedDateText.setText(pickerRange.getHeaderText());
+                mShowSelectedDateText.setError(null);
+                //Do something...
             }
         });
 
-        CalendarView toDate = (CalendarView)view.findViewById(R.id.toDate);
-        toDate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month,
-                                            int dayOfMonth) {
-                toDatetemporary = Calendar.getInstance();
-                toDatetemporary.set(year, month, dayOfMonth);
 
-            }
-        });
+
 
         addRequestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //mViewModel.
+                addRequestBtn.setEnabled(false);
                 Travel t = getTravel(currView);
-                mViewModel.addTravel(t);
+                if(validForm(t)) {
+                    mViewModel.addTravel(t);
+                    Toast.makeText(v.getContext(), "Travel add successfully!!!", Toast.LENGTH_LONG).show();
+                }
+
+                addRequestBtn.setEnabled(true);
             }
         });
 
@@ -98,18 +137,60 @@ public class AddFragment extends Fragment {
     }
 
 
+    private  boolean validForm(Travel t){
+        boolean flag = true;
+        if(t.getClientName().equals("")){
+            editTextClientName.setError( "Client name is required!" );
+            flag = false;
+
+        }
+        if(t.getClientEmail().equals("")){
+            editTextEmailAddress.setError( "Email is required!" );
+            flag = false;
+
+        }
+        if(t.getClientPhone().equals("")){
+            editTextTextClientPhone.setError( "Phone is required!" );
+            flag = false;
+
+        }
+
+        if(t.getClientPhone().equals("")){
+            editTextTextClientPhone.setError( "Phone is required!" );
+            flag = false;
+
+        }
+        if( t.getPassengers() ==0){
+            editTextPassengers.setError( "Missing Passengers!" );
+            flag = false;
+
+        }
+        if(t.getArrivalDate()==null || t.getTravelDate()== null){
+            mShowSelectedDateText.setError( "Please select dates!" );
+            flag = false;
+
+        }
+        if( t.getTravelLocation()== null ){
+            editTextFromAddress.setError( "The system does not found the location please specific your location adddrss" );
+            flag = false;
+
+        }
+
+        if( t.getDestinations()== null || t.getDestinations().size()==0 ){
+            editTextToAddress.setError( "The system does not found the location please specific your location adddrss" );
+            flag = false;
+
+        }
+
+
+        return flag;
+    }
+
     private Travel getTravel( View root ) {
 
         Travel t = new Travel();
-        EditText editTextClientName = (EditText)root.findViewById(R.id.editTextClientName);
-        EditText editTextTextClientPhone = (EditText)root.findViewById(R.id.editTextTextClientPhone);
-        EditText editTextEmailAddress = (EditText)root.findViewById(R.id.editTextEmailAddress);
-        EditText editTextFromAddress = (EditText)root.findViewById(R.id.editTextFromAddress);
+        //EditText
 
-        EditText editTextToAddress = (EditText)root.findViewById(R.id.editTextToAddress);
-
-
-        EditText editTextPassengers = (EditText)root.findViewById(R.id.editTextPassengers);
 
         //from address
         String fromAddress =editTextFromAddress.getText().toString().trim();
@@ -129,9 +210,15 @@ public class AddFragment extends Fragment {
         t.setClientName(editTextClientName.getText().toString().trim());
         t.setClientPhone(editTextTextClientPhone.getText().toString().trim());
         t.setClientEmail(editTextEmailAddress.getText().toString().trim());
-        t.setTravelDate(fromDatetemporary.getTime());
-        t.setArrivalDate(toDatetemporary.getTime());
-        t.setPassengers(Integer.parseInt(editTextPassengers.getText().toString().trim()));
+        t.setTravelDate(fDate);
+        t.setArrivalDate(tDate);
+        if(!editTextPassengers.getText().toString().trim().equals("")) {
+            try {
+                t.setPassengers(Integer.parseInt(editTextPassengers.getText().toString().trim()));
+            }catch (Exception ex){
+
+            }
+        }
         return t;
     }
 

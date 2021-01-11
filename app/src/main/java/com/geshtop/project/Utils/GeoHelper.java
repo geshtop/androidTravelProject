@@ -20,7 +20,7 @@ public class GeoHelper {
         try {
             // May throw an IOException
             address = coder.getFromLocationName(strAddress, 5);
-            if (address == null) {
+            if (address == null || address.size()==0) {
                 return null;
             }
 

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -37,7 +38,8 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mViewModel = new ViewModelProvider(this.getActivity()).get(TravelViewModel.class);
+        if(mViewModel == null)
+            mViewModel = new ViewModelProvider(this.getActivity()).get(TravelViewModel.class);
         return inflater.inflate(R.layout.list_fragment, container, false);
 
     }
@@ -59,7 +61,10 @@ public class ListFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        if(mViewModel == null)
+            mViewModel = new ViewModelProvider(this.getActivity()).get(TravelViewModel.class);
         super.onViewCreated(view, savedInstanceState);
+
 
         itemsListView  = (ListView)view.findViewById(R.id.list_view_items);
         mViewModel.getAllTravels().observe(this.getActivity(), new Observer<List<Travel>>() {
