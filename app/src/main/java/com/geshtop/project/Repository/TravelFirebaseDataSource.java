@@ -117,6 +117,7 @@ public  class TravelFirebaseDataSource implements ITravelDataSource {
 
     @Override
     public List<Travel> getAllTravels() {
+
         return allTravelsList;
     }
 

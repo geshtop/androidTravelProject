@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.geshtop.project.Entity.User;
 import com.geshtop.project.R;
 import com.geshtop.project.ui.auth.AuthActivity;
+import com.geshtop.project.ui.auth.AuthViewModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -19,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -30,15 +32,20 @@ import androidx.appcompat.widget.Toolbar;
 import static com.geshtop.project.Utils.Constants.USER;
 
 public class TravelActivity extends AppCompatActivity  implements FirebaseAuth.AuthStateListener{
-
+    private TravelViewModel mViewModel;
     private AppBarConfiguration mAppBarConfiguration;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private GoogleSignInClient googleSignInClient;
     private TextView messageTextView;
+
+    public TravelViewModel  getViewModel(){
+        return this.mViewModel;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initTravelViewModel();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -68,7 +75,9 @@ public class TravelActivity extends AppCompatActivity  implements FirebaseAuth.A
     }
 
 
-
+    private void initTravelViewModel() {
+        mViewModel = new ViewModelProvider(this).get(TravelViewModel.class);
+    }
 
     private User getUserFromIntent() {
         return (User) getIntent().getSerializableExtra(USER);

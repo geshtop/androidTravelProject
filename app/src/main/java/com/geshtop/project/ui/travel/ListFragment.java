@@ -38,8 +38,9 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        if(mViewModel == null)
-            mViewModel = new ViewModelProvider(this.getActivity()).get(TravelViewModel.class);
+
+        TravelActivity ta = (TravelActivity)this.getActivity();
+        mViewModel = ta.getViewModel();
         return inflater.inflate(R.layout.list_fragment, container, false);
 
     }
@@ -47,8 +48,6 @@ public class ListFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //mViewModel = new ViewModelProvider(this).get(AddViewModel.class);
-
         // TODO: Use the ViewModel
     }
 
@@ -61,8 +60,7 @@ public class ListFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        if(mViewModel == null)
-            mViewModel = new ViewModelProvider(this.getActivity()).get(TravelViewModel.class);
+
         super.onViewCreated(view, savedInstanceState);
 
 

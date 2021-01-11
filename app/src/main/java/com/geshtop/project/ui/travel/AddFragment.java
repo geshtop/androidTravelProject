@@ -54,13 +54,16 @@ public class AddFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mViewModel = new ViewModelProvider(this).get(TravelViewModel.class);
+        TravelActivity ta = (TravelActivity)this.getActivity();
+        mViewModel = ta.getViewModel();
+        //mViewModel = new ViewModelProvider(this).get(TravelViewModel.class);
         return inflater.inflate(R.layout.add_fragment, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         //mViewModel = new ViewModelProvider(this).get(AddViewModel.class);
         //mViewModel = new ViewModelProvider(this).get(TravelViewModel.class);
         // TODO: Use the ViewModel
@@ -70,7 +73,7 @@ public class AddFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        //mViewModel = new ViewModelProvider(this).get(TravelViewModel.class);
         View currView = view;
         addRequestBtn = (Button) view.findViewById(R.id.addRequestBtn);
         mPickDateButton = view.findViewById(R.id.pick_date_button);
