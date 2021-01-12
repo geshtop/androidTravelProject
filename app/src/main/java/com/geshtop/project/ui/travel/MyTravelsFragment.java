@@ -1,72 +1,65 @@
 package com.geshtop.project.ui.travel;
 
-import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.lifecycle.Observer;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
-import com.geshtop.project.Adapters.MyTravelsRecyclerViewAdapter;
+import com.geshtop.project.Adapters.MyTravelsAdapter;
+import com.geshtop.project.Entity.Travel;
 import com.geshtop.project.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
  */
 public class MyTravelsFragment extends Fragment {
-
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
-
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+    private TravelViewModel mViewModel;
+    private  ListView itemsListView;
     public MyTravelsFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static MyTravelsFragment newInstance(int columnCount) {
-        MyTravelsFragment fragment = new MyTravelsFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
-    }
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_travels_list, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyTravelsRecyclerViewAdapter(this.getContext(), null, null ));
-        }
-        return view;
+        TravelActivity ta = (TravelActivity)this.getActivity();
+        mViewModel = ta.getViewModel();
+        return inflater.inflate(R.layout.fragment_my_travels_list, container, false);
+
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        super.onViewCreated(view, savedInstanceState);
+
+
+        itemsListView  = (ListView)view.findViewById(R.id.travels_list_view_items);
+        mViewModel.getAllTravels().observe(this.getActivity(), new Observer<List<Travel>>() {
+            @Override
+            public void onChanged(List<Travel> travels) {
+                ArrayList<Travel> tmp = new ArrayList<Travel>(travels);
+                //create adapter object
+                MyTravelsAdapter adapter = new MyTravelsAdapter(view.getContext(), tmp, mViewModel);
+                //set custom adapter as adapter to our list view
+                itemsListView.setAdapter(adapter);
+            }});
     }
 }

@@ -199,12 +199,12 @@ public class AddFragment extends Fragment {
         String fromAddress =editTextFromAddress.getText().toString().trim();
         LatLng lFrom = GeoHelper.getLocationFromAddress(fromAddress, root.getContext());
         if(lFrom != null)
-            t.setTravelLocation(new UserLocation(lFrom.latitude, lFrom.longitude));
+            t.setTravelLocation(new UserLocation(lFrom.latitude, lFrom.longitude, fromAddress));
         //to address
         String toAddress =editTextToAddress.getText().toString().trim();
         LatLng lTo =GeoHelper.getLocationFromAddress(toAddress, root.getContext());
         if(lTo != null){
-            UserLocation toLocation =    new UserLocation(lTo.latitude, lTo.longitude);
+            UserLocation toLocation =    new UserLocation(lTo.latitude, lTo.longitude, toAddress);
             // List<UserLocation> l = new ArrayList<>();
             // l.add(toLocation);
             // t.setDestinations(l);

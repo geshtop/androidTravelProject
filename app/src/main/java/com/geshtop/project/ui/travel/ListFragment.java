@@ -28,12 +28,11 @@ import java.util.List;
 public class ListFragment extends Fragment {
 
     private TravelViewModel mViewModel;
-    Context context;
     ListView itemsListView;
 
-    public static ListFragment newInstance() {
-        return new ListFragment();
-    }
+    //public static ListFragment newInstance() {
+    //    return new ListFragment();
+    //}
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -51,12 +50,6 @@ public class ListFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.context=context;
-    }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -70,7 +63,7 @@ public class ListFragment extends Fragment {
             public void onChanged(List<Travel> travels) {
                 ArrayList<Travel> tmp = new ArrayList<Travel>(travels);
                 //create adapter object
-                TravelsListAdapter adapter = new TravelsListAdapter(context, tmp, mViewModel);
+                TravelsListAdapter adapter = new TravelsListAdapter(view.getContext(), tmp, mViewModel);
                 //set custom adapter as adapter to our list view
                 itemsListView.setAdapter(adapter);
             }});

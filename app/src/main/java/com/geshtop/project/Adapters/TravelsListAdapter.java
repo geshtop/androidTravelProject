@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -93,36 +94,33 @@ public class TravelsListAdapter extends BaseAdapter {
             viewHolder.clientEmail.setText(currentItem.getClientEmail());
             TravelCompany tc = currentItem.companyExists(currentUser.email);
             if(tc == null){
-                viewHolder.checkBox.setChecked(false);
-                viewHolder.checkBox.setEnabled(true);
+                viewHolder.acceptButton.setEnabled(true);
                 viewHolder.accepted.setVisibility(View.INVISIBLE);
                 viewHolder.not_accepted.setVisibility(View.INVISIBLE);
 
             }else{
-                viewHolder.checkBox.setChecked(true);
+                viewHolder.acceptButton.setEnabled(false);
                 if (tc.getApproved()){ //the client confirm
-                    viewHolder.checkBox.setEnabled(false); // disable checkbox
                     viewHolder.accepted.setVisibility(View.VISIBLE);
                     viewHolder.not_accepted.setVisibility(View.INVISIBLE);
                 }else{
-                    viewHolder.checkBox.setEnabled(true);
                     viewHolder.accepted.setVisibility(View.INVISIBLE);
                     viewHolder.not_accepted.setVisibility(View.VISIBLE);
                 }
             }
 
-            viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            viewHolder.acceptButton.setOnClickListener(new View.OnClickListener(){
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                public void onClick(View v) {
                     if (currentUser != null) {
                         TravelCompany tc = new TravelCompany(currentUser.uid, currentUser.name, currentUser.email);
-                        currentItem.addSingleCompany(tc, isChecked);
+                        currentItem.addSingleCompany(tc, true);
                         mViewModel.updateTravel(currentItem);
-                        Toast.makeText(context, currentUser.uid + " add successfullt to travel", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, currentUser.name + " update successfullt the travel", Toast.LENGTH_LONG).show();
                     }
                 }
             });
+
 
         }
 
@@ -137,12 +135,12 @@ public class TravelsListAdapter extends BaseAdapter {
         TextView clientEmail;
         TextView accepted;
         TextView not_accepted;
-        CheckBox checkBox;
+        Button acceptButton;
         public ViewHolder(View view) {
             clientName = (TextView)view.findViewById(R.id.clientName);
             clientPhone = (TextView) view.findViewById(R.id.clientPhone);
             clientEmail = (TextView) view.findViewById(R.id.clientEmail);
-            checkBox = (CheckBox) view.findViewById(R.id.checkBox);
+            acceptButton = (Button) view.findViewById(R.id.acceptButton);
             accepted = (TextView) view.findViewById(R.id.accepted);
             not_accepted = (TextView) view.findViewById(R.id.not_accepted);
         }

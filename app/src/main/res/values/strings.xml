@@ -29,4 +29,7 @@
     <string name="write_your_email">Write your email</string>
     <string name="from_address">From address</string>
     <string name="to_address">To address</string>
+    <string name="accept">Accept</string>
+    <string name="not_accepted_yet">Not accepted yet</string>
+    <string name="accepted">Accepted</string>
 </resources>

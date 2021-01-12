@@ -2,15 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight=".70"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
         <TextView
             android:id="@+id/clientName"
             android:layout_width="wrap_content"
@@ -31,40 +24,31 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:textSize="16sp" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight=".70"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <CheckBox
-            android:id="@+id/checkBox"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="CheckBox" />
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/acceptButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Accept" />
 
-        <TextView
-            android:id="@+id/not_accepted"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Not accepted yet"
-            android:textColor="#F44336"
-            tools:visibility="invisible" />
+            <TextView
+                android:id="@+id/not_accepted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/not_accepted_yet"
+                android:textColor="#F44336"
+                tools:visibility="invisible" />
 
-        <TextView
-            android:id="@+id/accepted"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Accepted"
-            android:textColor="#4CAF50" />
-
-    </LinearLayout>
-
-
+            <TextView
+                android:id="@+id/accepted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/accepted"
+                android:textColor="#4CAF50" />
+        </LinearLayout>
 </LinearLayout>
