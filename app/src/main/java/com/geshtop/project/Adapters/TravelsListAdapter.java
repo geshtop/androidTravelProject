@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.geshtop.project.Entity.RequestType;
 import com.geshtop.project.Entity.Travel;
 import com.geshtop.project.Entity.TravelCompany;
 import com.geshtop.project.Entity.User;
@@ -114,6 +115,7 @@ public class TravelsListAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     if (currentUser != null) {
                         TravelCompany tc = new TravelCompany(currentUser.uid, currentUser.name, currentUser.email);
+                        currentItem.setRequestType(RequestType.Accepted);
                         currentItem.addSingleCompany(tc, true);
                         mViewModel.updateTravel(currentItem);
                         Toast.makeText(context, currentUser.name + " update successfullt the travel", Toast.LENGTH_LONG).show();

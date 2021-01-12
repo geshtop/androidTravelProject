@@ -68,13 +68,13 @@ public class MyTravelsAdapter extends BaseAdapter {
 
             if(currentItem.getTravelLocation()!= null && currentItem.getDestinations().size() > 0)
                 viewHolder.travelLocation.setText(currentItem.getTravelLocation().toString()  + "-" + currentItem.getDestinations().get(0).toString() );
-
+            viewHolder.traveStatus.setText(currentItem.getRequestType().toString());
             viewHolder.travelDate.setText( sdf.format(currentItem.getTravelDate()) + "-" +  sdf.format(currentItem.getArrivalDate()) );
             if(currentItem.getCompanies().size() >0) {
                 viewHolder.approvedIcon.setVisibility(View.VISIBLE);
                 viewHolder.notApprovedIcon.setVisibility(View.GONE);
-                CompaniesAdapter listNewAdapter = new CompaniesAdapter(context, currentItem.getCompanies(), mViewModel);
-                viewHolder.companiesListView.setAdapter(listNewAdapter);
+                CompaniesAdapter companyAdapter = new CompaniesAdapter(context,currentItem , mViewModel);
+                viewHolder.companiesListView.setAdapter(companyAdapter);
             }else{
                 viewHolder.companiesListView.setVisibility(View.GONE);
                 viewHolder.approvedIcon.setVisibility(View.GONE);
@@ -108,8 +108,10 @@ public class MyTravelsAdapter extends BaseAdapter {
         public final View mView;
         public final TextView travelDate;
         public final TextView travelLocation;
+        public final TextView traveStatus;
         public final ImageView approvedIcon;
         public final ImageView notApprovedIcon;
+
         public final ListView companiesListView;
         public ViewHolder(View view) {
             mView = view;
@@ -118,6 +120,7 @@ public class MyTravelsAdapter extends BaseAdapter {
             approvedIcon = (ImageView) view.findViewById(R.id.approvedIcon);
             notApprovedIcon = (ImageView) view.findViewById(R.id.notApprovedIcon);
             companiesListView = (ListView) view.findViewById(R.id.companiesListView);
+            traveStatus = (TextView) view.findViewById(R.id.traveStatus);
         }
 
     }

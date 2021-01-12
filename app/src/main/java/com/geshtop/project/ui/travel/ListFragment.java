@@ -19,15 +19,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.geshtop.project.Adapters.TravelsListAdapter;
+import com.geshtop.project.Entity.RequestType;
 import com.geshtop.project.Entity.Travel;
 import com.geshtop.project.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ListFragment extends Fragment {
 
     private TravelViewModel mViewModel;
+    private  String currEmail;
     ListView itemsListView;
 
     //public static ListFragment newInstance() {
@@ -40,6 +43,7 @@ public class ListFragment extends Fragment {
 
         TravelActivity ta = (TravelActivity)this.getActivity();
         mViewModel = ta.getViewModel();
+        currEmail =mViewModel.getCurrentUser().email.trim();
         return inflater.inflate(R.layout.list_fragment, container, false);
 
     }
@@ -56,12 +60,17 @@ public class ListFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
-
         itemsListView  = (ListView)view.findViewById(R.id.list_view_items);
         mViewModel.getAllTravels().observe(this.getActivity(), new Observer<List<Travel>>() {
             @Override
             public void onChanged(List<Travel> travels) {
-                ArrayList<Travel> tmp = new ArrayList<Travel>(travels);
+                List<Travel> filterTravels = travels.stream()
+                        .filter(
+                                c -> !c.getClientEmail().equals(currEmail)
+                                        && (c.getRequestType().equals(RequestType.Accepted) || c.getRequestType().equals(RequestType.Created))
+                        )
+                        .collect(Collectors.toList());
+                ArrayList<Travel> tmp = new ArrayList<Travel>(filterTravels);
                 //create adapter object
                 TravelsListAdapter adapter = new TravelsListAdapter(view.getContext(), tmp, mViewModel);
                 //set custom adapter as adapter to our list view

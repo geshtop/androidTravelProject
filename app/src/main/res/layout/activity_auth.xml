@@ -4,17 +4,21 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 android:layout_width="match_parent"
 android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView2"
+
+    <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="fdgdfgd" />
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/add_big" />
 
     <com.google.android.gms.common.SignInButton
     android:id="@+id/google_sign_in_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerInParent="true"
-    app:buttonSize="wide"/>
+    app:buttonSize="wide">
+
+    </com.google.android.gms.common.SignInButton>
 
 </RelativeLayout>

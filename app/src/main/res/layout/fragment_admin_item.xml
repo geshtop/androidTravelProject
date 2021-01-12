@@ -20,30 +20,41 @@
             android:gravity="center_vertical"
             app:srcCompat="@android:drawable/btn_star_big_on" />
 
-        <ImageView
-            android:id="@+id/notApprovedIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="center_vertical"
-            app:srcCompat="@android:drawable/btn_star_big_off" />
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
             android:orientation="vertical">
-
                 <TextView
-                    android:id="@+id/travelLocation"
+                    android:id="@+id/clientName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:textStyle="bold"
                     android:textSize="20sp"
+                    android:layout_weight="1"
+                    android:text="TextView" />
+                <TextView
+                    android:id="@+id/clientEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_weight="1"
+                    android:text="TextView" />
+                <TextView
+                    android:id="@+id/clientPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:layout_weight="1"
+                    android:text="TextView" />
+                <TextView
+                    android:id="@+id/travelLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
                     android:layout_weight="1"
                     android:text="TextView" />
 
@@ -57,14 +68,17 @@
                     android:id="@+id/traveStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="20sp"
                     android:layout_weight="1"
                     />
-                <ListView
+
+                <Button
+                    android:id="@+id/paidButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:id="@+id/companiesListView"
-                    />
+                    android:text="Paid" />
+
         </LinearLayout>
 
 </LinearLayout>

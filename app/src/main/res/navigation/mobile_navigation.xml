@@ -38,5 +38,9 @@
         android:name="com.geshtop.project.ui.travel.MyTravelsFragment"
         android:label="@string/my_travels"
         tools:layout="@layout/fragment_my_travels_list" />
-
+    <fragment
+        android:id="@+id/nav_administrator"
+        android:name="com.geshtop.project.ui.travel.AdminFragment"
+        android:label="Administrator"
+        tools:layout="@layout/admin_fragment" />
 </navigation>

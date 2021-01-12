@@ -5,16 +5,11 @@ import androidx.room.TypeConverters;
 import java.util.Date;
 
 public class TravelCompany {
+
     private  String email;
     private String name;
 
-    public String getCid() {
-        return cid;
-    }
 
-    public void setCid(String cid) {
-        this.cid = cid;
-    }
 
     private String cid;
     private Date createdDate;
@@ -75,6 +70,14 @@ public class TravelCompany {
 
     public void setApprovedDate(Date approvedDate) {
         this.approvedDate = approvedDate;
+    }
+
+    public String getCid() {
+        return cid;
+    }
+
+    public void setCid(String cid) {
+        this.cid = cid;
     }
 
 }

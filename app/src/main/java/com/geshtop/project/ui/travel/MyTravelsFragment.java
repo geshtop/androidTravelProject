@@ -13,11 +13,14 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.geshtop.project.Adapters.MyTravelsAdapter;
+import com.geshtop.project.Entity.RequestType;
 import com.geshtop.project.Entity.Travel;
 import com.geshtop.project.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * A fragment representing a list of Items.
@@ -25,6 +28,7 @@ import java.util.List;
 public class MyTravelsFragment extends Fragment {
     private TravelViewModel mViewModel;
     private  ListView itemsListView;
+    private  String currEmail;
     public MyTravelsFragment() {
     }
 
@@ -40,6 +44,7 @@ public class MyTravelsFragment extends Fragment {
 
         TravelActivity ta = (TravelActivity)this.getActivity();
         mViewModel = ta.getViewModel();
+        currEmail =mViewModel.getCurrentUser().email.trim();
         return inflater.inflate(R.layout.fragment_my_travels_list, container, false);
 
     }
@@ -50,12 +55,17 @@ public class MyTravelsFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
-
         itemsListView  = (ListView)view.findViewById(R.id.travels_list_view_items);
         mViewModel.getAllTravels().observe(this.getActivity(), new Observer<List<Travel>>() {
             @Override
             public void onChanged(List<Travel> travels) {
-                ArrayList<Travel> tmp = new ArrayList<Travel>(travels);
+                List<Travel> filterTravels = travels.stream()
+                        .filter(
+                                c -> c.getClientEmail().equals(currEmail)
+                                && (c.getRequestType().equals(RequestType.Accepted) || c.getRequestType().equals(RequestType.Created))
+                        )
+                        .collect(Collectors.toList());
+                ArrayList<Travel> tmp = new ArrayList<Travel>(filterTravels);
                 //create adapter object
                 MyTravelsAdapter adapter = new MyTravelsAdapter(view.getContext(), tmp, mViewModel);
                 //set custom adapter as adapter to our list view

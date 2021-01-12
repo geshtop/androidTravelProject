@@ -61,7 +61,7 @@ public class TravelActivity extends AppCompatActivity  implements FirebaseAuth.A
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home,  R.id.nav_list, R.id.nav_add, R.id.nav_my_travels)
+                R.id.nav_home,  R.id.nav_list, R.id.nav_add, R.id.nav_my_travels, R.id.nav_administrator)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

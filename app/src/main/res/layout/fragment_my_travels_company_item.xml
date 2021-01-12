@@ -6,17 +6,26 @@
     android:orientation="horizontal">
 
     <TextView
+        android:id="@+id/cidTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="11sp"
+        android:layout_marginRight="3dp"
+        android:layout_weight="1"
+        android:text="TextView" />
+
+    <TextView
         android:id="@+id/companyName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:textSize="12sp"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/comapnyAddedDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:textSize="12sp"
         android:text="TextView" />
 
 
@@ -24,7 +33,7 @@
         android:id="@+id/confirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:textSize="12sp"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:text="Accept" />
 </LinearLayout>
