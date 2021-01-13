@@ -1,6 +1,8 @@
 package com.geshtop.project.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -123,6 +126,15 @@ public class TravelsListAdapter extends BaseAdapter {
                 }
             });
 
+            viewHolder.phoneCall.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    Uri number = Uri.parse("tel:"+Uri.encode(currentItem.getClientPhone()));
+                    Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+                    context.startActivity(callIntent);
+                }
+            });
+
 
         }
 
@@ -138,11 +150,13 @@ public class TravelsListAdapter extends BaseAdapter {
         TextView accepted;
         TextView not_accepted;
         Button acceptButton;
+        ImageButton phoneCall;
         public ViewHolder(View view) {
             clientName = (TextView)view.findViewById(R.id.clientName);
             clientPhone = (TextView) view.findViewById(R.id.clientPhone);
             clientEmail = (TextView) view.findViewById(R.id.clientEmail);
             acceptButton = (Button) view.findViewById(R.id.acceptButton);
+            phoneCall = (ImageButton) view.findViewById(R.id.phoneCall);
             accepted = (TextView) view.findViewById(R.id.accepted);
             not_accepted = (TextView) view.findViewById(R.id.not_accepted);
         }

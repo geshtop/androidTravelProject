@@ -41,6 +41,18 @@ public class ListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
+        
+
+        TextView text = (TextView) findViewById(R.id.texts);
+        if(mGPS.canGetLocation ){
+            mGPS.getLocation();
+            text.setText("Lat"+mGPS.getLatitude()+"Lon"+mGPS.getLongitude());
+        }else{
+            text.setText("Unabletofind");
+            System.out.println("Unable");
+        }
+
+
         TravelActivity ta = (TravelActivity)this.getActivity();
         mViewModel = ta.getViewModel();
         currEmail =mViewModel.getCurrentUser().email.trim();

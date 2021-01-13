@@ -6,24 +6,25 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_baseline_house_24"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_add"
-            android:icon="@drawable/ic_add__new__create__map__location"
-            android:title="@string/add_tavels" />
+            android:icon="@drawable/ic_baseline_departure_board_24"
+            android:title="@string/add_tavels"
+            />
         <item
             android:id="@+id/nav_list"
-            android:icon="@drawable/buy"
+            android:icon="@drawable/ic_baseline_queue_24"
             android:title="@string/watch_tavels" />
         <item
             android:id="@+id/nav_my_travels"
-            android:icon="@drawable/my_travel"
+            android:icon="@drawable/ic_baseline_room_24"
             android:title="@string/my_travels" />
         <item
             android:id="@+id/nav_administrator"
-            android:icon="@drawable/ic_coloured_free_set_copy_battery"
-            android:title="Administrator" />
+            android:icon="@drawable/ic_baseline_supervised_user_circle_24"
+            android:title="@string/administrator" />
 <!--        <item-->
 <!--            android:id="@+id/nav_gallery"-->
 <!--            android:icon="@drawable/ic_menu_gallery"-->
