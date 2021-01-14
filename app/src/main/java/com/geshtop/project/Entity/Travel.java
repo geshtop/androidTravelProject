@@ -1,11 +1,14 @@
 package com.geshtop.project.Entity;
 
+import android.location.Location;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
+import com.google.firebase.database.Exclude;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -21,14 +24,30 @@ import com.google.gson.reflect.TypeToken;
 
 @Entity(tableName = "travels")
 public class Travel {
+    public float getCurrentDistance() {
+        return currentDistance;
+    }
+
+    public void setCurrentDistance(float currentDistance) {
+        this.currentDistance = currentDistance;
+    }
+
     @NonNull
     @PrimaryKey
     private String travelId ;
     private String ClientName;
     private String ClientPhone;
+    private String Title;
+
+
+
     private String clientEmail;
-
-
+    private String acceptedByEmail;
+    private String acceptedByName;
+    @Exclude
+    private float currentDistance;
+    @TypeConverters(Convertors.DateConverter.class)
+    private Date acceptedDate;
     @TypeConverters(Convertors.UserLocationConverter.class)
     private UserLocation travelLocation;
     @TypeConverters(RequestType.class)
@@ -40,8 +59,6 @@ public class Travel {
     private int passengers;
     @TypeConverters(Convertors.CompaniesConverter.class)
     private List<TravelCompany> companies;
-//    @TypeConverters(Convertors.CompanyConverter.class)
-//    private HashMap<String, Boolean> company;
 
     @TypeConverters(Convertors.DestinationsConverter.class)
     private List<UserLocation> Destinations;
@@ -151,13 +168,37 @@ public class Travel {
         this.arrivalDate = arrivalDate;
     }
 
-//    public HashMap<String, Boolean> getCompany() {
-//        return company;
-//    }
-//
-//    public void setCompany(HashMap<String, Boolean> company) {
-//        this.company = company;
-//    }
+
+    public String getAcceptedByEmail() {
+        return acceptedByEmail;
+    }
+
+    public void setAcceptedByEmail(String acceptedByEmail) {
+        this.acceptedByEmail = acceptedByEmail;
+    }
+
+    public String getAcceptedByName() {
+        return acceptedByName;
+    }
+
+    public void setAcceptedByName(String acceptedByName) {
+        this.acceptedByName = acceptedByName;
+    }
+
+    public Date getAcceptedDate() {
+        return acceptedDate;
+    }
+
+    public void setAcceptedDate(Date acceptedDate) {
+        this.acceptedDate = acceptedDate;
+    }
+    public String getTitle() {
+        return Title;
+    }
+
+    public void setTitle(String title) {
+        Title = title;
+    }
 
 
     public void addSingleCompany(TravelCompany company, boolean status)
@@ -209,6 +250,12 @@ public class Travel {
     }
 
 
+    public Location getLocationFromTravel(){
+        Location l =new Location(travelId);
+       l.setLatitude(travelLocation.getLat());
+       l.setLongitude(travelLocation.getLon());
+       return  l;
+    }
 
 
     public void addDestionationLocation (UserLocation location){

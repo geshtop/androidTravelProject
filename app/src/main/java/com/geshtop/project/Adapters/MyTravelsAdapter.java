@@ -25,7 +25,7 @@ public class MyTravelsAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Travel> items;
     private TravelViewModel mViewModel;
-    SimpleDateFormat sdf;
+    private SimpleDateFormat sdf;
 
     public MyTravelsAdapter(Context context, ArrayList<Travel> items, TravelViewModel mViewModel) {
         this.context = context;

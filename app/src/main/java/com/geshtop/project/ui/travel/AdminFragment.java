@@ -34,7 +34,7 @@ public class AdminFragment extends Fragment {
     private List<String> requestedTypes;
     private RequestType selectedReustType = RequestType.Created;
     private  ListView filteredList;
-    List<Travel> travelsList;
+    private  List<Travel> travelsList;
     public static AdminFragment newInstance() {
         return new AdminFragment();
     }
@@ -57,19 +57,23 @@ public class AdminFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    private  void fillList( List<Travel>travels, @NonNull View view){
 
-        List<Travel> filterTravels = travels.stream()
+    private  void fillList( @NonNull View view){
+
+        List<Travel> filterTravels = travelsList.stream()
                 .filter(
                         c -> c.getRequestType().equals(selectedReustType)
                 )
                 .collect(Collectors.toList());
+
         ArrayList<Travel> tmp = new ArrayList<Travel>(filterTravels);
         //create adapter object
         AdminAdapter adapter = new AdminAdapter(view.getContext(), tmp, mViewModel);
         //set custom adapter as adapter to our list view
         filteredList.setAdapter(adapter);
     }
+
+
 
 
     @Override
@@ -87,7 +91,7 @@ public class AdminFragment extends Fragment {
             @Override
             public void onChanged(List<Travel> travels) {
                 travelsList = travels;
-               fillList(travels, view);
+               fillList( view);
 
 
             }});
@@ -95,12 +99,12 @@ public class AdminFragment extends Fragment {
         filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedReustType =RequestType.valueOf(requestedTypes.get(i));
-                fillList(  travelsList, view);
+                fillList(   view);
             }
 
             public void onNothingSelected(AdapterView<?> adapterView) {
                 selectedReustType =RequestType.Created;
-                fillList(travelsList, view);
+                fillList( view);
             }
         });
 

@@ -28,6 +28,7 @@ import com.geshtop.project.ui.travel.DetailFragment;
 import com.geshtop.project.ui.travel.TravelActivity;
 import com.geshtop.project.ui.travel.TravelViewModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -37,10 +38,12 @@ public class TravelsListAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Travel> items;
     private  TravelViewModel mViewModel;
+    private SimpleDateFormat sdf;
     public TravelsListAdapter(Context context, ArrayList<Travel> items, TravelViewModel mViewModel) {
         this.context = context;
         this.items = items;
         this.mViewModel = mViewModel;
+        sdf = new SimpleDateFormat("dd/MM/yy");
     }
 
     @Override
@@ -63,7 +66,7 @@ public class TravelsListAdapter extends BaseAdapter {
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Toast.makeText(context, "Hi !\n" + "Youddr account was successfully created.", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Hi !\n" + "Your account was successfully created.", Toast.LENGTH_LONG).show();
 
            final Fragment detail = new DetailFragment();
            TravelActivity mainActivity = (TravelActivity) context;
@@ -96,6 +99,12 @@ public class TravelsListAdapter extends BaseAdapter {
             viewHolder.clientName.setText(currentItem.getClientName());
             viewHolder.clientPhone.setText(currentItem.getClientPhone());
             viewHolder.clientEmail.setText(currentItem.getClientEmail());
+            viewHolder.titleTextView.setText(currentItem.getTitle());
+            viewHolder.datesTextView.setText( sdf.format(currentItem.getTravelDate()) + "-" +  sdf.format(currentItem.getArrivalDate()) );
+
+            Float dis = currentItem.getCurrentDistance();
+            if(dis!= 0)
+                viewHolder.fillDistance.setText(dis.toString());
             TravelCompany tc = currentItem.companyExists(currentUser.email);
             if(tc == null){
                 viewHolder.acceptButton.setEnabled(true);
@@ -144,9 +153,12 @@ public class TravelsListAdapter extends BaseAdapter {
 
     //ViewHolder inner class
     private class ViewHolder {
+        TextView titleTextView;
+        TextView datesTextView;
         TextView clientName;
         TextView clientPhone;
         TextView clientEmail;
+        TextView fillDistance;
         TextView accepted;
         TextView not_accepted;
         Button acceptButton;
@@ -159,6 +171,9 @@ public class TravelsListAdapter extends BaseAdapter {
             phoneCall = (ImageButton) view.findViewById(R.id.phoneCall);
             accepted = (TextView) view.findViewById(R.id.accepted);
             not_accepted = (TextView) view.findViewById(R.id.not_accepted);
+            fillDistance = (TextView) view.findViewById(R.id.fillDistance);
+            titleTextView = (TextView) view.findViewById(R.id.titleTextView);
+            datesTextView = (TextView) view.findViewById(R.id.datesTextView);
         }
     }
 }

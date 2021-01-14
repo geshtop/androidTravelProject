@@ -90,6 +90,7 @@ public class AddFragment extends Fragment {
         MaterialDatePicker.Builder<Pair<Long, Long>> materialDateBuilder = MaterialDatePicker.Builder.dateRangePicker();
         materialDateBuilder.setTitleText("SELECT A DATE");
         final MaterialDatePicker pickerRange  = materialDateBuilder.build();
+
         mPickDateButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -173,6 +174,11 @@ public class AddFragment extends Fragment {
             flag = false;
 
         }
+        Date currentDate = new Date();
+        if(currentDate.after(t.getTravelDate())){
+            mShowSelectedDateText.setError( "Date cannot be past date" );
+            flag = false;
+        }
         if( t.getTravelLocation()== null ){
             editTextFromAddress.setError( "The system does not found the location please specific your location adddrss" );
             flag = false;
@@ -222,6 +228,7 @@ public class AddFragment extends Fragment {
 
             }
         }
+        t.setTitle(fromAddress + " - " + toAddress);
         return t;
     }
 

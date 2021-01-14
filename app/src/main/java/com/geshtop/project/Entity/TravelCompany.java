@@ -1,7 +1,5 @@
 package com.geshtop.project.Entity;
 
-import androidx.room.TypeConverters;
-
 import java.util.Date;
 
 public class TravelCompany {

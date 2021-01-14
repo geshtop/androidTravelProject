@@ -3,7 +3,9 @@ package com.geshtop.project.Utils;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 
+import com.geshtop.project.Entity.Travel;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
@@ -35,6 +37,11 @@ public class GeoHelper {
         return p1;
     }
 
+
+    public static float GetDistance(Location locationA,  Location locationB ){
+        float distance = locationA.distanceTo(locationB);
+        return  distance;
+    }
 
 
 
