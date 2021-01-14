@@ -7,9 +7,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.geshtop.project.Entity.Travel;
@@ -71,12 +73,22 @@ public class MyTravelsAdapter extends BaseAdapter {
             viewHolder.traveStatus.setText(currentItem.getRequestType().toString());
             viewHolder.travelDate.setText( sdf.format(currentItem.getTravelDate()) + "-" +  sdf.format(currentItem.getArrivalDate()) );
             if(currentItem.getCompanies().size() >0) {
+                //viewHolder.companiesListView.heigh(80*currentItem.getCompanies().size());
                 viewHolder.approvedIcon.setVisibility(View.VISIBLE);
                 viewHolder.notApprovedIcon.setVisibility(View.GONE);
-                CompaniesAdapter companyAdapter = new CompaniesAdapter(context,currentItem , mViewModel);
-                viewHolder.companiesListView.setAdapter(companyAdapter);
+//                CompaniesAdapter companyAdapter = new CompaniesAdapter(context,currentItem , mViewModel);
+//                //viewHolder.companiesListView.setAdapter(companyAdapter);
+//                viewHolder.companiesSpinner.setAdapter(companyAdapter);
+                CompanyAdapter cAdapter = new CompanyAdapter(context,currentItem , mViewModel);
+                //viewHolder.companiesListView.setAdapter(companyAdapter);
+
+                //viewHolder.companyListView.setHasFixedSize(true);
+                viewHolder.companyListView.setLayoutManager(new LinearLayoutManager(context));
+                viewHolder.companyListView.setAdapter(cAdapter);
+
             }else{
-                viewHolder.companiesListView.setVisibility(View.GONE);
+                //viewHolder.companiesListView.setVisibility(View.GONE);
+                viewHolder.companyListView.setVisibility(View.GONE);
                 viewHolder.approvedIcon.setVisibility(View.GONE);
                 viewHolder.notApprovedIcon.setVisibility(View.VISIBLE);
             }
@@ -112,15 +124,20 @@ public class MyTravelsAdapter extends BaseAdapter {
         public final ImageView approvedIcon;
         public final ImageView notApprovedIcon;
 
-        public final ListView companiesListView;
+        //public final ListView companiesListView;
+        //public  final Spinner companiesSpinner;
+        public  final RecyclerView companyListView;
         public ViewHolder(View view) {
             mView = view;
             travelDate = (TextView) view.findViewById(R.id.travelDate);
             travelLocation = (TextView) view.findViewById(R.id.travelLocation);
             approvedIcon = (ImageView) view.findViewById(R.id.approvedIcon);
             notApprovedIcon = (ImageView) view.findViewById(R.id.notApprovedIcon);
-            companiesListView = (ListView) view.findViewById(R.id.companiesListView);
+            //companiesListView = (ListView) view.findViewById(R.id.companiesListView);
             traveStatus = (TextView) view.findViewById(R.id.traveStatus);
+           // companiesSpinner = (Spinner) view.findViewById(R.id.companiesSpinner);
+            companyListView = (RecyclerView) view.findViewById(R.id.companyListView);
+
         }
 
     }
