@@ -108,16 +108,16 @@ public class TravelsListAdapter extends BaseAdapter {
             TravelCompany tc = currentItem.companyExists(currentUser.email);
             if(tc == null){
                 viewHolder.acceptButton.setEnabled(true);
-                viewHolder.accepted.setVisibility(View.INVISIBLE);
-                viewHolder.not_accepted.setVisibility(View.INVISIBLE);
+                viewHolder.accepted.setVisibility(View.GONE);
+                viewHolder.not_accepted.setVisibility(View.GONE);
 
             }else{
                 viewHolder.acceptButton.setEnabled(false);
-                if (tc.getApproved()){ //the client confirm
+                if (tc.getRunning()){ //the client confirm
                     viewHolder.accepted.setVisibility(View.VISIBLE);
-                    viewHolder.not_accepted.setVisibility(View.INVISIBLE);
+                    viewHolder.not_accepted.setVisibility(View.GONE);
                 }else{
-                    viewHolder.accepted.setVisibility(View.INVISIBLE);
+                    viewHolder.accepted.setVisibility(View.GONE);
                     viewHolder.not_accepted.setVisibility(View.VISIBLE);
                 }
             }

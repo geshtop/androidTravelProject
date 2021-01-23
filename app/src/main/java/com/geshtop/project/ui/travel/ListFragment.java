@@ -29,6 +29,7 @@ import com.google.android.material.slider.Slider;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,7 +55,8 @@ public class ListFragment extends Fragment {
         List<Travel> filterTravels = travelsList.stream()
                 .filter(
                         c -> !c.getClientEmail().equals(currEmail)
-                        && (c.getRequestType().equals(RequestType.Accepted) || c.getRequestType().equals(RequestType.Created))
+                        && (c.getTravelDate().after( new Date()))
+                        && (c.getRequestType().equals(RequestType.Accepted) || c.getRequestType().equals(RequestType.Created) || c.getRequestType().equals(RequestType.Run))
                         && ( c.getCurrentDistance() < filterRadios)
                 )
                 .collect(Collectors.toList());

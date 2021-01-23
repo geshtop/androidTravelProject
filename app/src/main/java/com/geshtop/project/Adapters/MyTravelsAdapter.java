@@ -76,13 +76,7 @@ public class MyTravelsAdapter extends BaseAdapter {
                 //viewHolder.companiesListView.heigh(80*currentItem.getCompanies().size());
                 viewHolder.approvedIcon.setVisibility(View.VISIBLE);
                 viewHolder.notApprovedIcon.setVisibility(View.GONE);
-//                CompaniesAdapter companyAdapter = new CompaniesAdapter(context,currentItem , mViewModel);
-//                //viewHolder.companiesListView.setAdapter(companyAdapter);
-//                viewHolder.companiesSpinner.setAdapter(companyAdapter);
                 CompanyAdapter cAdapter = new CompanyAdapter(context,currentItem , mViewModel);
-                //viewHolder.companiesListView.setAdapter(companyAdapter);
-
-                //viewHolder.companyListView.setHasFixedSize(true);
                 viewHolder.companyListView.setLayoutManager(new LinearLayoutManager(context));
                 viewHolder.companyListView.setAdapter(cAdapter);
 

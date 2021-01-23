@@ -9,7 +9,9 @@ public class TravelCompany {
 
 
 
+
     private String cid;
+    private Boolean running;
     private Date createdDate;
     private Boolean approved;
     private Date approvedDate;
@@ -23,6 +25,7 @@ public class TravelCompany {
         this.name = name;
         this.createdDate = new Date();
         this.approved = false;
+        this.running = false;
 
     }
 
@@ -76,6 +79,15 @@ public class TravelCompany {
 
     public void setCid(String cid) {
         this.cid = cid;
+    }
+
+
+    public Boolean getRunning() {
+        return running;
+    }
+
+    public void setRunning(Boolean running) {
+        this.running = running;
     }
 
 }

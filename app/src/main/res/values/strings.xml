@@ -30,8 +30,8 @@
     <string name="from_address">From address</string>
     <string name="to_address">To address</string>
     <string name="accept">Accept</string>
-    <string name="not_accepted_yet">Not accepted yet</string>
-    <string name="accepted">Accepted</string>
+    <string name="not_accepted_yet">Not Approved</string>
+    <string name="accepted">Approve</string>
     <string name="administrator">Administrator</string>
 
 

@@ -28,12 +28,15 @@ class AViewHolder extends RecyclerView.ViewHolder implements View.OnClickListene
     TextView comapnyAddedDate;
     TextView cidTextView;
     Button confirmButton;
+    Button runButton;
     public AViewHolder(View itemView) {
         super(itemView);
         companyName = (TextView)itemView.findViewById(R.id.companyName);
         comapnyAddedDate = (TextView) itemView.findViewById(R.id.comapnyAddedDate);
         cidTextView = (TextView) itemView.findViewById(R.id.cidTextView);
         confirmButton = (Button) itemView.findViewById(R.id.confirmButton);
+        runButton = (Button) itemView.findViewById(R.id.runButton);
+
         //itemView.setOnClickListener(this);
     }
 
@@ -74,7 +77,14 @@ public class CompanyAdapter extends RecyclerView.Adapter<AViewHolder> {
     public void onBindViewHolder(AViewHolder viewHolder, int position) {
         TravelCompany tc = items.get(position);
         TravelCompany currentTravelCompany = (TravelCompany) getItem(position);
-
+        if(currentTravelCompany.getRunning()){
+            viewHolder.runButton.setVisibility(View.GONE);
+            viewHolder.confirmButton.setVisibility(View.VISIBLE);
+        }
+        else{
+            viewHolder.runButton.setVisibility(View.VISIBLE);
+            viewHolder.confirmButton.setVisibility(View.GONE);
+        }
         if (currentTravelCompany != null) {
             User currentUser = mViewModel.getCurrentUser();
             viewHolder.companyName.setText(currentTravelCompany.getName());
@@ -82,6 +92,19 @@ public class CompanyAdapter extends RecyclerView.Adapter<AViewHolder> {
             Integer  temp = position + 1;
             viewHolder.cidTextView.setText(temp.toString());
             // viewHolder.cidTextView.setText(currentTravelCompany.getCid());
+
+
+            viewHolder.runButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    if (currentUser != null) {
+                        currentTravelCompany.setRunning(true);
+                        currentTravel.setRequestType(RequestType.Run);
+                        mViewModel.updateTravel(currentTravel);
+                        Toast.makeText(context, "updated travel company ", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
 
             viewHolder.confirmButton.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -93,10 +116,6 @@ public class CompanyAdapter extends RecyclerView.Adapter<AViewHolder> {
                         currentTravel.setAcceptedByName(currentTravelCompany.getName());
                         currentTravel.setAcceptedByEmail(currentTravelCompany.getEmail());
                         mViewModel.updateTravel(currentTravel);
-
-//                        TravelCompany tc = new TravelCompany(currentUser.uid, currentUser.name, currentUser.email);
-//                        currentItem.addSingleCompany(tc, isChecked);
-//                        mViewModel.updateTravel(currentItem);
                         Toast.makeText(context, "updated travel company ", Toast.LENGTH_LONG).show();
                     }
                 }

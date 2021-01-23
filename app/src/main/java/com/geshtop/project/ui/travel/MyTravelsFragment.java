@@ -18,6 +18,7 @@ import com.geshtop.project.Entity.Travel;
 import com.geshtop.project.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -62,7 +63,8 @@ public class MyTravelsFragment extends Fragment {
                 List<Travel> filterTravels = travels.stream()
                         .filter(
                                 c -> c.getClientEmail().equals(currEmail)
-                                && (c.getRequestType().equals(RequestType.Accepted) || c.getRequestType().equals(RequestType.Created))
+                                && (c.getTravelDate().after( new Date()))
+                                && (c.getRequestType().equals(RequestType.Accepted) || c.getRequestType().equals(RequestType.Created) || c.getRequestType().equals(RequestType.Run))
                         )
                         .collect(Collectors.toList());
                 ArrayList<Travel> tmp = new ArrayList<Travel>(filterTravels);

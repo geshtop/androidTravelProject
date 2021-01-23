@@ -4,7 +4,7 @@ import androidx.room.TypeConverter;
 
 
 public enum RequestType {
-    Created(0), Accepted(1), Done(2), Paid(4);
+    Created(0), Accepted(1),  Run(2) , Done(3), Paid(4);
     private final Integer code;
     RequestType(Integer value) {
         this.code = value;

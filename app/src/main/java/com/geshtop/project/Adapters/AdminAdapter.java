@@ -87,10 +87,8 @@ public class AdminAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     if (currentUser != null) {
-//                        currentTravelCompany.setApproved(true);
-//                        currentTravelCompany.setApprovedDate(new Date());
-//                        currentTravel.setRequestType(RequestType.Done);
-//                        mViewModel.updateTravel(currentTravel);
+                        currentItem.setRequestType(RequestType.Paid);
+                        mViewModel.updateTravel(currentItem);
                         Toast.makeText(context, "updated travel company ", Toast.LENGTH_LONG).show();
                     }
                 }

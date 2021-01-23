@@ -175,12 +175,12 @@ public class AddFragment extends Fragment {
 
         }
         Date currentDate = new Date();
-        if(currentDate.after(t.getTravelDate())){
+        if(t.getTravelDate()!= null &&currentDate.after(t.getTravelDate())){
             mShowSelectedDateText.setError( "Date cannot be past date" );
             flag = false;
         }
         if( t.getTravelLocation()== null ){
-            editTextFromAddress.setError( "The system does not found the location please specific your location adddrss" );
+            editTextFromAddress.setError( "The system does not found the location please specific your location address" );
             flag = false;
 
         }

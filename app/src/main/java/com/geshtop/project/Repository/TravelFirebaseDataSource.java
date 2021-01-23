@@ -48,6 +48,7 @@ public  class TravelFirebaseDataSource implements ITravelDataSource {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 allTravelsList.clear();
                 if (dataSnapshot.exists()) {
+
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                             Travel travel = snapshot.getValue(Travel.class);
                             allTravelsList.add(travel);
