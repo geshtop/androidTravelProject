@@ -46,9 +46,7 @@ public class AdminFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         TravelActivity ta = (TravelActivity)this.getActivity();
         mViewModel = ta.getViewModel();
-        requestedTypes = Stream.of(RequestType.values())
-                .map(RequestType::name)
-                .collect(Collectors.toList());
+        requestedTypes = RequestType.getTypseAsList();
         return inflater.inflate(R.layout.admin_fragment, container, false);
     }
 
