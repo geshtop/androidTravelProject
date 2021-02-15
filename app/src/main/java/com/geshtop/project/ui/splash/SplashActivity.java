@@ -21,7 +21,7 @@ public class SplashActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         try {
-            mAuth = FirebaseAuth.getInstance();
+            mAuth = FirebaseAuth.getInstance();//.setPersistenceEnabled(true);
             //FirebaseUser currentUser = mAuth.getCurrentUser();
             mAuth.signOut();
 

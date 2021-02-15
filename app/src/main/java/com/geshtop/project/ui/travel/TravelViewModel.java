@@ -31,6 +31,15 @@ public class TravelViewModel extends AndroidViewModel {
         return user;
         //authenticatedUserMutableLiveData.setValue(user);
     }
+
+    public  void signOut(){
+        try {
+            mAuth.signOut();
+
+        }catch (Exception ex){
+
+        }
+    }
     private MutableLiveData<List<Travel>> mutableLiveData = new MutableLiveData<>();
     public TravelViewModel(Application p) {
         super(p);

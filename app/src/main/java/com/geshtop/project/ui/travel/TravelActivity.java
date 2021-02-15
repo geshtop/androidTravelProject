@@ -2,12 +2,14 @@ package com.geshtop.project.ui.travel;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
 
 import com.geshtop.project.Entity.User;
 import com.geshtop.project.R;
+import com.geshtop.project.Service.TravelStatusService;
 import com.geshtop.project.ui.auth.AuthActivity;
 import com.geshtop.project.ui.auth.AuthViewModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -41,6 +43,13 @@ public class TravelActivity extends AppCompatActivity  implements FirebaseAuth.A
     public TravelViewModel  getViewModel(){
         return this.mViewModel;
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +81,8 @@ public class TravelActivity extends AppCompatActivity  implements FirebaseAuth.A
         initGoogleSignInClient();
         initMessageTextView();
         setMessageToMessageTextView(user);
+
+
     }
 
 
@@ -98,6 +109,28 @@ public class TravelActivity extends AppCompatActivity  implements FirebaseAuth.A
         String message = "You are logged in as: " + user.name;
         messageTextView.setText(message);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.show_notification:
+                Intent serviceIntent = new Intent(this, TravelStatusService.class);
+                serviceIntent.putExtra("inputExtra", "test");
+                startService(serviceIntent);
+                break;
+            case R.id.hide_notification:
+                Intent serviceIntent2 = new Intent(this, TravelStatusService.class);
+                stopService(serviceIntent2);
+                break;
+            case R.id.log_out:
+                mViewModel.signOut();
+                goToAuthInActivity();
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
